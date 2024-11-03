@@ -1,0 +1,9 @@
+
+
+
+ALTER TABLE SALES_ITEM ADD COLUMN day_of_week INTEGER;
+ALTER TABLE sales_item ALTER COLUMN day_of_week SET NOT NULL;
+ALTER TABLE sales_item RENAME COLUMN day_of_week TO dow; -- RENAME COLUMN 
+ALTER TABLE sales_item DROP COLUMN dow; -- DROP COLUMN
+ALTER TABLE sales_item RENAME TO sales; -- RENAME TABLE
+
