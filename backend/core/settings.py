@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,13 +21,28 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-l1br6t(3(_ingjrv@r!ga-n=5r!yhaqadl4efdcklaxb21w+*j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+print('-----------------------------------------------------------------------------')
+print(os.environ.get('SECRET_KEY'))
+print('-----------------------------------------------------------------------------')
+
+# TODO: AWS Secrets Manager / Microsoft Azure Key Vault
+SECRET_KEY = os.environ.get('SECRET_KEY','django-insecure-l1br6t(3(_ingjrv@r!ga-n=5r!yhaqadl4efdcklaxb21w+*j')
+ENCRYPT_KEY = os.environ.get('ENCRYPT_KEY')
+
+ENVIRONMENT = os.environ.get('ENVIRONMENT')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ.get('DEBUG', True)
+
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1').split(',')
+if ENVIRONMENT == 'production':
+    ALLOWED_HOSTS.append(os.environ.get('RENDER_EXTERNAL_HOSTNAME'))
+
+CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'http://localhost:3000').split(',')
 
 
 # Application definition
@@ -85,6 +102,11 @@ DATABASES = {
     }
 }
 
+POSTGRES_LOCALY = os.environ.get('POSTGRES_LOCALY', False)
+
+if ENVIRONMENT == 'production' or POSTGRES_LOCALY is True:
+    DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3'))
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -138,3 +160,18 @@ STORAGES = {
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+ACCOUNT_USERNAME_BLACKLIST = ['admin', 'root', 'celery', 'accounts', 'profile', 'category', 'post', 'inbox', 'manager']
+
+
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://redis:6379/0')
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', 'redis://redis:6379/0')
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+
+
+DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')
+
+STAGING = os.environ.get('STAGING', False)

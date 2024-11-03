@@ -34,3 +34,5 @@ node_modules
 _/
 
 db.sqlite3
+backend/.env
+backend/.env.prod
