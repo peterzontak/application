@@ -12,8 +12,17 @@ sudo crontab -u root -l
 ## View Completed CRON Jobs
 sudo cat /var/log/syslog | grep cron
 
+## Start CRON service
+sudo service cron start
+
+## Stop CRON service
+sudo service cron stop
+
 ## Check if CRON is Running
 sudo systemctl status cron
+sudo service cron status
+
+
 
 1. Minute (0-59)
 2. Hour (0-23)

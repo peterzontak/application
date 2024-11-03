@@ -1,9 +1,12 @@
 body{
 }
 
-nav{
+nav.navbar{
     font-size: 1.5em;
     background: #595959;
+}
+nav.navbar ul{
+   margin-inline: auto !important;
 }
 
 .page{
@@ -12,6 +15,7 @@ nav{
     opacity: 0.8 !important;
     background-image:  linear-gradient(rgba(103, 112, 120,.1) 1px, transparent 1px), linear-gradient(to right, rgba(103, 112, 120,.1) 1px, rgba(228, 228, 247, .1) 1px) !important;
     background-size: 20px 20px !important;
+    min-height: 90vh;
 }
 
 h1{
@@ -51,4 +55,14 @@ h3{
 
 .file pre{
     border-radius: 0.2em;
+}
+
+
+@media only screen and (max-width: 900px) {
+    .page{
+        padding: 2% 5%;
+    }
+    nav.navbar ul{
+         margin-inline: 0.2em !important;
+    }
 }
