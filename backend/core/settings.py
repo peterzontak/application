@@ -25,9 +25,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-print('-----------------------------------------------------------------------------')
-print(os.environ.get('SECRET_KEY'))
-print('-----------------------------------------------------------------------------')
 
 # TODO: AWS Secrets Manager / Microsoft Azure Key Vault
 SECRET_KEY = os.environ.get('SECRET_KEY','django-insecure-l1br6t(3(_ingjrv@r!ga-n=5r!yhaqadl4efdcklaxb21w+*j')
@@ -44,6 +41,11 @@ if ENVIRONMENT == 'production':
 
 CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'http://localhost:3000').split(',')
 
+
+print('-----------------------------------------------------------------------------')
+print(ALLOWED_HOSTS)
+print(os.environ.get('SECRET_KEY'))
+print('-----------------------------------------------------------------------------')
 
 # Application definition
 
