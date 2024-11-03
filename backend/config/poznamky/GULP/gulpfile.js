@@ -1,10 +1,14 @@
-const gulp = require('gulp');
-const ts = require('gulp-typescript');
-const sass = require('gulp-sass')(require('sass'));
-const autoprefixer = require('gulp-autoprefixer');
-const cleanCSS = require('gulp-clean-css');
-const terser = require('gulp-terser');
-const sourcemaps = require('gulp-sourcemaps');
+import gulp from 'gulp';
+import ts from 'gulp-typescript';
+import * as _sass from 'sass'
+import gulpSass from 'gulp-sass';
+
+import autoprefixer from 'gulp-autoprefixer';
+import cleanCSS from 'gulp-clean-css';
+import terser from 'gulp-terser';
+import sourcemaps from 'gulp-sourcemaps';
+
+const sass = gulpSass(_sass);
 
 // TypeScript project
 const tsProject = ts.createProject('tsconfig.json');
@@ -38,3 +42,4 @@ gulp.task('watch', function () {
 
 // Default task
 gulp.task('default', gulp.series(gulp.parallel('scripts', 'styles'), 'watch'));
+

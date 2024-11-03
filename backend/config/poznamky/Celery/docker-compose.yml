@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+
+  redis:
+    image: redis:7.4-alpine
+
+  django:
+    container_name: django
+    build:
+      context: .
+      dockerfile: ./django/Dockerfile
+    volumes:
+      - ./django:/usr/src/app/  # Mount local directory to container
+    ports:
+      - "8001:8000"  # Expose port 8001 on host to port 8000 in container
+    environment:
+      - DEBUG=1
+      - ALLOWED_HOSTS=localhost,127.0.0.1
+    depends_on:
+      - redis
+
+  celery:
+    container_name: celery1
+    build:
+      context: ./django
+    command: celery --app=django worker -l INFO -Q celery,celery:1,celery:2,celery:3
+    volumes:
+      - ./django:/usr/src/app/
+    environment:
+      - DEBUG=1
+      - ALLOWED_HOSTS=localhost,127.0.0.1
+      - CELERY_BROKER_URL=redis://redis:6379/0  # Redis broker URL
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0  # Redis result backend URL
+    depends_on:
+      - redis
+      - django
+
+  celeryworker:
+    container_name: celeryworker
+    build:
+      context: ./celeryworker
+      dockerfile: ./Dockerfile
+    command: celery -A celerytask worker -l INFO -Q queue1
+    volumes:
+      - ./celeryworker:/usr/src/app/
+    depends_on:
+      - redis
+      - django
