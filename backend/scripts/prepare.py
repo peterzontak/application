@@ -1,4 +1,4 @@
-# Depends on global whitenoise !!!
+# Depends on global whitenoise && dj_database_url!!!
 import shutil
 import subprocess
 import os
@@ -57,6 +57,7 @@ try:
     
     command = ['python', 'manage.py', 'collectstatic', '--noinput']
     run_command(command)
+    # subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
     
 except FileNotFoundError as fnf_error:
     print(f"File not found: {fnf_error}")

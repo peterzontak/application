@@ -2,46 +2,55 @@
 {% block title %}{% endblock %}
 {% block head %}
 	{# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css"> #}
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+	{# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"> #}
+	{# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/base16/edge-dark.min.css"> #}
+	{# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/dark.min.css"> #}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github.min.css">
+    
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
 	<!-- and it's easy to individually load additional languages -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/markdown.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
 {% endblock %}
 {% block content %}
 	<h1>{{note}}</h1>
 
 
 	{% for heading, subdir in data.dirs.items %}
-		<h2>{{heading}}</h2>
+		<br><h2>{{heading}}</h2>
 		<div>
 			{% for subheading, obj in subdir.items %}
-                <div class="file">
-				<h3>{{subheading}}</h3>
-                    {% for paragraph in obj.content %}
-                        {% if obj.ext == '.md' %}
-                            <pre data-interpreted="{{obj.ext}}"><code class="language-markdown">{{paragraph}}</code></pre>
-                        {% elif obj.ext == '.sql' %}
-                            <pre data-interpreted="{{obj.ext}}"><code class="language-sql">{{paragraph}}</code></pre>
-                        {% else %}
-                            <pre data-interpreted="{{obj.ext}}"><code class="language-js">{{paragraph}}</code></pre>
-                        {% endif %}
-                    {% endfor %}
-                </div>
+				<div class="file">
+					<br><h3>{{subheading}}</h3>
+					{% for paragraph in obj.content %}
+						{% if obj.ext == '.md' %}
+							<pre data-interpreted="{{obj.ext}}"><code class="language-markdown">{{paragraph}}</code></pre>
+						{% elif obj.ext == '.sql' %}
+							<pre data-interpreted="{{obj.ext}}"><code class="language-sql">{{paragraph}}</code></pre>
+						{% elif obj.ext == '.py' %}
+							<pre data-interpreted="{{obj.ext}}"><code class="language-py">{{paragraph}}</code></pre>
+						{% else %}
+							<pre data-interpreted="{{obj.ext}}"><code class="language-js">{{paragraph}}</code></pre>
+						{% endif %}
+					{% endfor %}
+				</div>
 			{% endfor %}
 		</div>
 	{% endfor %}
 
 	{% for subheading, obj in data.files.items %}
 		<div class="file">
-			<h3>{{subheading}}</h3>
+			<br><h3>{{subheading}}</h3>
 			{% for paragraph in obj.content %}
 				{% if obj.ext == '.md' %}
 					<pre data-interpreted="{{obj.ext}}"><code class="language-markdown">{{paragraph}}</code></pre>
 				{% elif obj.ext == '.sql' %}
 					<pre data-interpreted="{{obj.ext}}"><code class="language-sql">{{paragraph}}</code></pre>
+				{% elif obj.ext == '.py' %}
+					<pre data-interpreted="{{obj.ext}}"><code class="language-py">{{paragraph}}</code></pre>
 				{% else %}
 					<pre data-interpreted="{{obj.ext}}"><code class="language-js">{{paragraph}}</code></pre>
 				{% endif %}

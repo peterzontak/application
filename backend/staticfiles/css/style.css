@@ -1,19 +1,38 @@
+body{
+}
+
 nav{
     font-size: 1.5em;
+    background: #595959;
 }
 
 .page{
-    padding: 2em;
+    padding: 2% 20%;
+    background-color: rgba(229, 238, 247,.5) !important;
+    opacity: 0.8 !important;
+    background-image:  linear-gradient(rgba(103, 112, 120,.1) 1px, transparent 1px), linear-gradient(to right, rgba(103, 112, 120,.1) 1px, rgba(228, 228, 247, .1) 1px) !important;
+    background-size: 20px 20px !important;
+}
+
+h1{
+    margin-inline: auto;
 }
 
 h1, h2, h3{
     font-weight: bold;
     text-transform: capitalize;
+    text-shadow: 0 0 2px black;
+    background: rgba(251, 251, 251, 0.4);
+    padding: 0.1em;
+    border-radius: 0.3em;
+    display: inline-block;
+    box-shadow: 0 0 5px white;
+
 }
 
 h1{
     text-align: center;
-    margin: 1em !important;
+    /* margin: 1em !important; */
 }
 
 h2{
@@ -28,4 +47,8 @@ h3{
 .file{
     margin-top: 1em;
     padding: 2em 0;
+}
+
+.file pre{
+    border-radius: 0.2em;
 }

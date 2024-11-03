@@ -7,6 +7,7 @@
    <!-- https://docs.allauth.org/en/latest/installation/quickstart.html#post-installation -->
    pip install django-allauth
    pip install django-extensions <!-- show_urls -->
+   pip install dj_database_url <!-- PostgreSQL render.com -->
    pip install -r .\requirements.txt
 3. Start project
    django-admin startproject

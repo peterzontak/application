@@ -1,0 +1,38 @@
+body{
+    background-color: #e5e5f7 !important;
+    opacity: 0.8 !important;
+    background-image:  linear-gradient(#677078 1px, transparent 1px), linear-gradient(to right, #677078 1px, #e5e5f7 1px) !important;
+    background-size: 20px 20px !important;
+}
+
+nav{
+    font-size: 1.5em;
+}
+
+.page{
+    padding: 2em;
+}
+
+h1, h2, h3{
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+h1{
+    text-align: center;
+    margin: 1em !important;
+}
+
+h2{
+    margin-top: 1.5em !important;
+    margin-left: 1.5em !important;
+}
+
+h3{
+    margin-top: 1em !important;
+}
+
+.file{
+    margin-top: 1em;
+    padding: 2em 0;
+}
